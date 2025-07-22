@@ -1,0 +1,34 @@
+{% extends 'todoapp/base.html' %}
+{% block content %}
+
+<h3 class="text-center">Todo App</h3>
+<hr>
+
+<!-- Centered Box -->
+<div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="col-md-6 col-sm-12">
+
+        <!-- Todo Input Form -->
+        <form action="{% url 'index' %}" method="post" class="d-flex justify-content-center mb-3">
+            {% csrf_token %}
+            <input type="text" name="text" id="text" class="form-control w-50 text-center" placeholder="Add todo...">
+            <button type="submit" class="ms-2 btn btn-success btn-sm">Add</button>
+        </form>
+
+        <!-- Task List -->
+        <ul class="list-group text-center w-75 mx-auto">
+            {% for todo in todos %}
+            <li class="list-group-item">
+               <div class="d-flex justify-content-between">
+                   <span>{{ todo.text }}</span>
+                   <a class="btn btn-danger btn-sm" href="{% url 'deleteTodo' id=todo.id %}">x</a>
+               </div>  
+            </li>
+            {% endfor %}            
+        </ul>
+
+    </div>
+</div>
+
+{% endblock %}
+
